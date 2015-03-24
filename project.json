@@ -12,6 +12,9 @@
 
     "jsList" : [
         "src/resource.js",
-        "src/GameLayer.js"
+        "src/GameLayer.js",
+        "src/Raft.js",
+        "src/Wave.js",
+        "src/River.js"
     ]
 }
