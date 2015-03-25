@@ -4,10 +4,21 @@ var Raft = cc.Sprite.extend({
         this.initWithFile( 'res/images/Raft.png' );
         this.velocity = 0;
         this.rotation = 0;
+        this.moving = false;
+        this.turningLeft = false;
+        this.turningRight = false;
     },
     
     update: function() {
         var pos = this.getPosition();
+        
+        if ( this.moving ) 
+            this.move();
+        if ( this.turningLeft )
+            this.rotateLeft();
+        if ( this.turningRight )
+            this.rotateRight();
+            
         
         if ( this.velocity < -0.2 )
             this.setPosition( new cc.Point( pos.x, pos.y + River.current ) );
@@ -36,5 +47,5 @@ var Raft = cc.Sprite.extend({
     
 });
                          
-Raft.Acceleration = 0.06;
-Raft.TurningAngle = 4;
+Raft.Acceleration = 0.04;
+Raft.TurningAngle = 3;

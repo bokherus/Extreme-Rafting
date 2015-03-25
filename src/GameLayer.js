@@ -49,18 +49,20 @@ var GameLayer = cc.LayerColor.extend({
     onKeyDown: function( keyCode, event ) {   
         console.log( keyCode );
         if ( keyCode == cc.KEY.up )
-             this.raft.move();
+             this.raft.moving = true;
         
-        if (keyCode == cc.KEY.left)
-             this.raft.rotateLeft();
+        if ( keyCode == cc.KEY.left )
+             this.raft.turningLeft = true;
         
-        if (keyCode == cc.KEY.right)
-            this.raft.rotateRight();
+        if ( keyCode == cc.KEY.right )
+            this.raft.turningRight = true;
         
     },
 
     onKeyUp: function( keyCode, event ) {
-        
+        this.raft.moving = false;
+        this.raft.turningLeft = false;
+        this.raft.turningRight = false;
     }
 
 });
