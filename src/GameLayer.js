@@ -17,7 +17,7 @@ var GameLayer = cc.LayerColor.extend({
         this.addChild( this.wave );
         
         this.raft = new Raft();
-        this.raft.setPosition( new cc.Point( 400, 300 ) );
+        this.raft.setPosition( new cc.Point( 400, 100 ) );
         this.raft.scheduleUpdate();
         this.addChild( this.raft );
  
@@ -26,6 +26,11 @@ var GameLayer = cc.LayerColor.extend({
     
     update: function() {
         // Check Wave and Raft Collision
+        // If wave hit raft then raft speed is reduced
+        
+        // Check Obstacle and Raft Collision
+        
+        
     },
     
     addKeyboardHandlers: function() {
@@ -45,10 +50,17 @@ var GameLayer = cc.LayerColor.extend({
         console.log( keyCode );
         if ( keyCode == cc.KEY.up )
              this.raft.move();
+        
+        if (keyCode == cc.KEY.left)
+             this.raft.rotateLeft();
+        
+        if (keyCode == cc.KEY.right)
+            this.raft.rotateRight();
+        
     },
 
     onKeyUp: function( keyCode, event ) {
-        this.raft.resetSpeed();
+        
     }
 
 });
