@@ -12,9 +12,26 @@ var GameLayer = cc.LayerColor.extend({
         this.addChild( this.river );
  
         this.wave = new Wave();
+        this.wave2 = new Wave2();
+        this.wave3 = new Wave();
+        this.wave4 = new Wave2();
         this.wave.scheduleUpdate();
-        this.wave.setPosition( new cc.Point( 400, 100 ) );
+        this.wave2.scheduleUpdate();
+        this.wave3.scheduleUpdate();
+        this.wave4.scheduleUpdate();
+        this.wave.setPosition( new cc.Point( 400, 300 ) );
+        this.wave2.setPosition( new cc.Point( 400, 150 ) );
+        this.wave3.setPosition( new cc.Point( 400, 0 ) );
+        this.wave4.setPosition( new cc.Point( 400, 450 ) );
         this.addChild( this.wave );
+        this.addChild( this.wave2 );
+        this.addChild( this.wave3 );
+        this.addChild( this.wave4 );
+        
+        this.rock = new Rock();
+        this.rock.scheduleUpdate();
+        this.rock.setPosition( new cc.Point( 120, 300 ) );
+        this.addChild( this.rock );
         
         this.raft = new Raft();
         this.raft.setPosition( new cc.Point( 400, 100 ) );
@@ -46,8 +63,7 @@ var GameLayer = cc.LayerColor.extend({
         }, this);
     },
 
-    onKeyDown: function( keyCode, event ) {   
-        console.log( keyCode );
+    onKeyDown: function( keyCode, event ) { 
         if ( keyCode == cc.KEY.up )
              this.raft.moving = true;
         
