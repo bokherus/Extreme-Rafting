@@ -2,8 +2,9 @@ var Raft = cc.Sprite.extend({
     ctor: function() {
         this._super();
         this.initWithFile( 'res/images/Raft.png' );
-        this.velocity = 0;
-        this.rotation = 0;
+        this.velocityX = 0;
+        this.velocityY = 0;
+        this.rotation = 90;
         this.moving = false;
         this.turningLeft = false;
         this.turningRight = false;
@@ -19,19 +20,26 @@ var Raft = cc.Sprite.extend({
         if ( this.turningRight )
             this.rotateRight();
         
-        if ( this.velocity < -0.2 )
+        if ( this.velocityY < -0.02 )
             this.setPosition( new cc.Point( pos.x, pos.y + River.current ) );
-        else {
-            this.setPosition( new cc.Point( pos.x, pos.y + this.velocity ) );
-            this.velocity += River.friction;
+        else if ( !this.moving ) {
+            this.setPosition( new cc.Point( pos.x, pos.y + this.velocityY ) );
+            this.velocityY -= River.friction;
         }
     },
     
     move: function() {
         var pos = this.getPosition();
-        this.setPosition( new cc.Point( pos.x, pos.y + this.velocity ) );
-        if ( this.velocity <= 1 )
-            this.velocity += Raft.Acceleration;
+        
+        this.setPosition( new cc.Point( pos.x + this.velocityX , pos.y + this.velocityY ) );
+        
+        if ( this.velocityY <= 1 )
+            this.velocityY += (Raft.Acceleration * Math.sin( (this.rotation % 360) * Math.PI/180) );
+        
+        if ( this.velocityX <= 1 )
+            this.velocityX -= (Raft.Acceleration *  Math.cos( (this.rotation % 360) * Math.PI/180) );
+        
+        console.log(this.velocityX);
     },
     
     rotateLeft: function( ) {
@@ -42,10 +50,10 @@ var Raft = cc.Sprite.extend({
     rotateRight: function() {
         this.rotation += Raft.TurningAngle;
         this.setRotation( this.rotation );
-         
+         console.log( this.rotation );
     },
     
 });
                          
-Raft.Acceleration = 0.035;
-Raft.TurningAngle = 2;
+Raft.Acceleration = 0.01;
+Raft.TurningAngle = 0.75;

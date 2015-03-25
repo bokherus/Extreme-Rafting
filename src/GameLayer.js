@@ -79,6 +79,7 @@ var GameLayer = cc.LayerColor.extend({
         this.raft.moving = false;
         this.raft.turningLeft = false;
         this.raft.turningRight = false;
+        this.raft.velocityX = 0;
     }
 
 });
