@@ -33,7 +33,7 @@ var Raft = cc.Sprite.extend({
             this.deaccelerateY();
         }
         
-        //this.setPosition( new cc.Point( pos.x + this.velocityX , pos.y + this.velocityY ) );
+        this.setPosition( new cc.Point( pos.x + this.velocityX , pos.y) );
     },
     
     deaccelerateX: function() {
@@ -52,10 +52,10 @@ var Raft = cc.Sprite.extend({
         
     
     accelerate: function() {
-        if ( this.velocityX <= 2 && this.velocityX >= -2 ) // Speed Limit
+        if ( this.velocityX <= 4 && this.velocityX >= -4 ) // Speed Limit
             this.velocityX -= (Raft.Acceleration *  Math.cos( this.rotation * Math.PI/180) );
         
-        if ( this.velocityY <= 2 && this.velocityY >= -2 ) // Speed Limit
+        if ( this.velocityY <= 4 && this.velocityY >= -4 ) // Speed Limit
             this.velocityY += (Raft.Acceleration * Math.sin( this.rotation * Math.PI/180) );
     },
     

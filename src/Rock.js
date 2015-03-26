@@ -2,6 +2,7 @@ var Rock = cc.Sprite.extend({
     ctor: function() {
         this._super();
         this.initWithFile( 'res/images/Rock.png' );
+        this.speed = 0;
     },
     
     update: function() {
@@ -9,6 +10,10 @@ var Rock = cc.Sprite.extend({
         if ( pos.y <= 0 )
             this.setPosition( new cc.Point( this.x, SCREEN_HEIGHT ) );
         else
-            this.setPosition( new cc.Point( pos.x, pos.y + Wave.speed ) );
+            this.setPosition( new cc.Point( pos.x, pos.y - this.speed ) );
+    },
+    
+    setSpeed: function( speed ) {
+        this.speed = speed;
     }
 });
