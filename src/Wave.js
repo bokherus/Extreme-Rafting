@@ -13,4 +13,4 @@ var Wave = cc.Sprite.extend({
     }
 });
 
-Wave.speed = -1.5;
+Wave.speed = -1;

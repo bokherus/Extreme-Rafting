@@ -30,7 +30,7 @@ var GameLayer = cc.LayerColor.extend({
         
         this.rock = new Rock();
         this.rock.scheduleUpdate();
-        this.rock.setPosition( new cc.Point( 120, 300 ) );
+        this.rock.setPosition( new cc.Point( 200, 300 ) );
         this.addChild( this.rock );
         
         this.raft = new Raft();
@@ -65,7 +65,7 @@ var GameLayer = cc.LayerColor.extend({
 
     onKeyDown: function( keyCode, event ) { 
         if ( keyCode == cc.KEY.up )
-             this.raft.moving = true;
+             this.raft.accelerating = true;
         
         if ( keyCode == cc.KEY.left )
              this.raft.turningLeft = true;
@@ -76,10 +76,14 @@ var GameLayer = cc.LayerColor.extend({
     },
 
     onKeyUp: function( keyCode, event ) {
-        this.raft.moving = false;
-        this.raft.turningLeft = false;
-        this.raft.turningRight = false;
-        this.raft.velocityX = 0;
+        if ( keyCode == cc.KEY.up )
+             this.raft.accelerating = false;
+        
+        if ( keyCode == cc.KEY.left )
+             this.raft.turningLeft = false;
+        
+        if ( keyCode == cc.KEY.right )
+            this.raft.turningRight = false;
     }
 
 });
