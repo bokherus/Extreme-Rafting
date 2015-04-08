@@ -16,7 +16,6 @@
         "src/Raft.js",
         "src/Wave.js",
         "src/River.js",
-        "src/Wave2.js",
-        "src/Rock.js"
+        "src/Obstacle.js"
     ]
 }

@@ -5,6 +5,7 @@ var Raft = cc.Sprite.extend({
         this.velocityX = 0;
         this.velocityY = 0;
         this.rotation = 90;
+        this.distance = 0;
         this.accelerating = false;
         this.turningLeft = false;
         this.turningRight = false;
@@ -21,18 +22,14 @@ var Raft = cc.Sprite.extend({
         
         if ( this.turningRight )
             this.rotateRight();
-        
-        if ( this.velocityY < 0 ) {
-            pos.y += River.current;
-            this.deaccelerateX();
-            
-        }
 
         else if ( !this.moving ) {
             this.deaccelerateX();
             this.deaccelerateY();
         }
         
+        this.distance += this.velocityY;
+
         this.setPosition( new cc.Point( pos.x + this.velocityX , pos.y) );
     },
     
@@ -44,18 +41,16 @@ var Raft = cc.Sprite.extend({
     },
     
     deaccelerateY: function() {
-         if ( this.velocityY > 0 )
+         if ( this.velocityY > River.current )
                 this.velocityY -= River.friction;
-         else if ( this.velocityY < 0 )
-                this.velocityY += River.friction;
+
     },
         
-    
     accelerate: function() {
         if ( this.velocityX <= 4 && this.velocityX >= -4 ) // Speed Limit
             this.velocityX -= (Raft.Acceleration *  Math.cos( this.rotation * Math.PI/180) );
         
-        if ( this.velocityY <= 4 && this.velocityY >= -4 ) // Speed Limit
+        if ( this.velocityY <= 8 ) // Speed Limit
             this.velocityY += (Raft.Acceleration * Math.sin( this.rotation * Math.PI/180) );
     },
     
@@ -71,5 +66,5 @@ var Raft = cc.Sprite.extend({
     
 });
                          
-Raft.Acceleration = 0.02;
+Raft.Acceleration = 0.025;
 Raft.TurningAngle = 0.75;

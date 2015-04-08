@@ -5,5 +5,5 @@ var River = cc.Sprite.extend({
     }
 });
 
-River.current = -0.24;
-River.friction = 0.01;
+River.current = -0.8;
+River.friction = 0.014;

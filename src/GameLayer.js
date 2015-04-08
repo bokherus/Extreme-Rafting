@@ -4,42 +4,46 @@ var GameLayer = cc.LayerColor.extend({
         this.setPosition( new cc.Point( 0, 0 ) );
         
         this.scheduleUpdate();
-        
         this.addKeyboardHandlers();
         
         this.river = new River();
         this.river.setPosition( new cc.Point( 400, 300 ) );
         this.addChild( this.river );
- 
-        this.wave = new Wave();
-        this.wave2 = new Wave2();
-        this.wave3 = new Wave();
-        this.wave4 = new Wave2();
-        this.wave.scheduleUpdate();
-        this.wave2.scheduleUpdate();
-        this.wave3.scheduleUpdate();
-        this.wave4.scheduleUpdate();
-        this.wave.setPosition( new cc.Point( 400, 300 ) );
-        this.wave2.setPosition( new cc.Point( 400, 150 ) );
-        this.wave3.setPosition( new cc.Point( 400, 0 ) );
-        this.wave4.setPosition( new cc.Point( 400, 450 ) );
-        this.addChild( this.wave );
-        this.addChild( this.wave2 );
-        this.addChild( this.wave3 );
-        this.addChild( this.wave4 );
+
+        this.createWave();
         
-        this.rock = new Rock();
+        this.rock = new Obstacle();
         this.rock.scheduleUpdate();
         this.rock.setPosition( new cc.Point( 200, 300 ) );
         this.addChild( this.rock );
         
+        this.scoreLabel = cc.LabelTTF.create( '0', 'Arial', 30 );
+	    this.scoreLabel.setPosition( new cc.Point( 750, 550 ) );
+	    this.addChild( this.scoreLabel );
+        
         this.raft = new Raft();
         this.raft.setPosition( new cc.Point( 400, 100 ) );
         this.raft.scheduleUpdate();
-        
         this.addChild( this.raft );
- 
+        
+        
         return true;
+    },
+    
+    createWave: function(){
+        
+        this.wave = new Wave();
+        this.wave2 = new Wave();
+        this.wave3 = new Wave();
+        this.wave.scheduleUpdate();
+        this.wave2.scheduleUpdate();
+        this.wave3.scheduleUpdate();
+        this.wave.setPosition( new cc.Point( 400, 400 ) );
+        this.wave2.setPosition( new cc.Point( 400, 200 ) );
+        this.wave3.setPosition( new cc.Point( 400, 0 ) );
+        this.addChild( this.wave );
+        this.addChild( this.wave2 );
+        this.addChild( this.wave3 );
     },
     
     update: function() {
@@ -47,15 +51,11 @@ var GameLayer = cc.LayerColor.extend({
         // If wave hit raft then raft speed is reduced
         
         // Check Obstacle and Raft Colllision
-        
-        this.rock.setSpeed(this.raft.velocityY);
-        this.wave.setSpeed(this.raft.velocityY);
-        this.wave2.setSpeed(this.raft.velocityY);
-        this.wave3.setSpeed(this.raft.velocityY);
-        this.wave4.setSpeed(this.raft.velocityY);
-        
-        
-        
+        this.scoreLabel.setString('Score: '+ this.raft.distance / 10);
+        this.rock.setSpeed( this.raft.velocityY );
+        this.wave.setSpeed( this.raft.velocityY );
+        this.wave2.setSpeed( this.raft.velocityY );
+        this.wave3.setSpeed( this.raft.velocityY );
     },
     
     addKeyboardHandlers: function() {
