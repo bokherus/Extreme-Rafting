@@ -50,7 +50,7 @@ var Raft = cc.Sprite.extend({
         if ( this.velocityX <= 4 && this.velocityX >= -4 ) // Speed Limit
             this.velocityX -= (Raft.Acceleration *  Math.cos( this.rotation * Math.PI/180) );
         
-        if ( this.velocityY <= 8 ) // Speed Limit
+        if ( this.velocityY <= 12 ) // Speed Limit
             this.velocityY += (Raft.Acceleration * Math.sin( this.rotation * Math.PI/180) );
     },
     
@@ -67,4 +67,4 @@ var Raft = cc.Sprite.extend({
 });
                          
 Raft.Acceleration = 0.025;
-Raft.TurningAngle = 0.75;
+Raft.TurningAngle = 1;
