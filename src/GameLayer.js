@@ -12,28 +12,40 @@ var GameLayer = cc.LayerColor.extend({
 
         this.createWave();
         
+        this.enemy = new Enemy();
+        this.enemy.setPosition( new cc.Point( 400, 0 ) );
+        this.enemy.scheduleUpdate();
+        this.addChild( this.enemy );
+        
         this.rock = new Obstacle();
         this.rock.scheduleUpdate();
         this.rock.setPosition( new cc.Point( 200, 300 ) );
         this.addChild( this.rock );
         
-        this.scoreLabel = cc.LabelTTF.create( '0', 'Arial', 20 );
-	    this.scoreLabel.setPosition( new cc.Point( 600, 400 ) );
+        this.scoreLabel = cc.LabelTTF.create( '0', 'Times New Roman', 18 );
+	    this.scoreLabel.setPosition( new cc.Point( 600, 550 ) );
 	    this.addChild( this.scoreLabel );
         
-        this.speedLabel = cc.LabelTTF.create( '0', 'Arial', 20 );
-	    this.speedLabel.setPosition( new cc.Point( 600, 360 ) );
-        
+        this.speedLabel = cc.LabelTTF.create( '0', 'Times New Roman', 18 );
+	    this.speedLabel.setPosition( new cc.Point( 600, 510 ) );
 	    this.addChild( this.speedLabel );
         
         this.raft = new Raft();
-        this.raft.setPosition( new cc.Point( 400, 100 ) );
+        this.raft.setPosition( new cc.Point( 400, 200 ) );
         this.raft.scheduleUpdate();
         this.addChild( this.raft );
         
+        this.bullet = new Bullet();
+        this.bullet.setPosition( new cc.Point( 100, 500 ) );
+        this.bullet.scheduleUpdate();
+        this.bullet.setDestination( this.raft.getPositionX(), this.raft.getPositionY() );
+        this.addChild( this.bullet );
         
         return true;
     },
+    
+    
+    
     
     createWave: function(){
         
@@ -69,6 +81,8 @@ var GameLayer = cc.LayerColor.extend({
         this.wave.setSpeed( this.raft.velocityY );
         this.wave2.setSpeed( this.raft.velocityY );
         this.wave3.setSpeed( this.raft.velocityY );
+        this.wave4.setSpeed( this.raft.velocityY );
+        this.enemy.setRelativeSpeed( this.raft.velocityY );
     },
     
     addKeyboardHandlers: function() {

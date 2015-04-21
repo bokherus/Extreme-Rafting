@@ -9,7 +9,7 @@ var Wave = cc.Sprite.extend({
     update: function() {
         var pos = this.getPosition();
         if ( pos.y <= 0 )
-            this.setPosition( new cc.Point( this.x, SCREEN_HEIGHT + 100) );
+            this.setPosition( new cc.Point( this.x, SCREEN_HEIGHT + 200) );
         else
             this.setPosition( new cc.Point( pos.x, pos.y - this.speed ) );
     },
@@ -19,5 +19,3 @@ var Wave = cc.Sprite.extend({
     }
 
 });
-
-Wave.speed = -1;

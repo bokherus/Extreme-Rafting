@@ -3,8 +3,8 @@ var Raft = cc.Sprite.extend({
         this._super();
         this.initWithFile( 'res/images/Raft.png' );
         this.velocityX = 0;
-        this.velocityY = 0;
-        this.rotation = 90;
+        this.velocityY = 1;
+        this.rotation = 0;
         this.distance = 0;
         this.accelerating = false;
         this.turningLeft = false;
@@ -17,20 +17,21 @@ var Raft = cc.Sprite.extend({
         if ( this.accelerating )
             this.accelerate();
         
+        else this.deaccelerateY();
+        
         if ( this.turningLeft )
             this.rotateLeft();
         
-        if ( this.turningRight )
+        else if ( this.turningRight )
             this.rotateRight();
 
-        else if ( !this.moving ) {
+        else {
             this.deaccelerateX();
-            this.deaccelerateY();
         }
         
         this.distance += this.velocityY;
 
-        this.setPosition( new cc.Point( pos.x + this.velocityX , pos.y) );
+        this.setPosition( new cc.Point( pos.x + this.velocityX , pos.y ) );
     },
     
     deaccelerateX: function() {
@@ -38,33 +39,43 @@ var Raft = cc.Sprite.extend({
                 this.velocityX -= River.friction;
          else if ( this.velocityX < 0 )
                 this.velocityX += River.friction;
+        
+        if ( this.rotation == 0 );
+        
+        else if ( this.rotation > 0 ) this.rotation -= Raft.TurningAngle;
+        
+        else this.rotation += Raft.TurningAngle;
     },
     
     deaccelerateY: function() {
-         if ( this.velocityY > River.current )
+         if ( this.velocityY > 1 )
                 this.velocityY -= River.friction;
 
     },
         
     accelerate: function() {
-        if ( this.velocityX <= 4 && this.velocityX >= -4 ) // Speed Limit
-            this.velocityX -= (Raft.Acceleration *  Math.cos( this.rotation * Math.PI/180) );
-        
-        if ( this.velocityY <= 12 ) // Speed Limit
-            this.velocityY += (Raft.Acceleration * Math.sin( this.rotation * Math.PI/180) );
+        if ( this.velocityY <= 8 )
+            this.velocityY += Raft.Acceleration;
     },
     
     rotateLeft: function( ) {
-         this.rotation -= Raft.TurningAngle;
+        if ( this.rotation > - 60 )
+            this.rotation -= Raft.TurningAngle;
+        
+         this.velocityX = -1 * Raft.TurningSpeed;
          this.setRotation( this.rotation % 360 );
     },
     
     rotateRight: function() {
-        this.rotation += Raft.TurningAngle;
+        if ( this.rotation < 60 )
+            this.rotation += Raft.TurningAngle;
+        
+        this.velocityX = Raft.TurningSpeed;
         this.setRotation( this.rotation % 360 );
     },
     
 });
                          
 Raft.Acceleration = 0.025;
-Raft.TurningAngle = 1;
+Raft.TurningAngle = 1.5;
+Raft.TurningSpeed = 1.5;

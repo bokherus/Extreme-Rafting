@@ -3,7 +3,8 @@ var res = {
     Wave_png : 'res/images/Wave.png',
     River_png : 'res/images/River.png',
     Wave2_png : 'res/images/Wave2.png',
-    Rock_png: 'res/images/Rock.png'
+    Rock_png: 'res/images/Rock.png',
+    Bullet_png: 'res/images/Bullet.png'
 };
 
 var g_resources = [];
