@@ -4,7 +4,8 @@ var res = {
     River_png : 'res/images/River.png',
     Wave2_png : 'res/images/Wave2.png',
     Rock_png: 'res/images/Rock.png',
-    Bullet_png: 'res/images/Bullet.png'
+    Bullet_png: 'res/images/Bullet.png',
+    Crash_wav: 'res/effects/crash.wav'
 };
 
 var g_resources = [];

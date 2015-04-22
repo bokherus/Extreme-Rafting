@@ -71,8 +71,10 @@ var GameLayer = cc.LayerColor.extend({
         
         
         // Check Obstacle and Raft Colllision
-        if (  this.rock.hit( this.raft ) )
+        if (  this.rock.hit( this.raft ) ){
             console.log("HIT!");
+            cc.audioEngine.playEffect( 'res/effects/crash.wav' );
+        }
        
         
         var distance = Math.floor(this.raft.distance / 10);
