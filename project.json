@@ -18,6 +18,7 @@
         "src/River.js",
         "src/Obstacle.js",
         "src/Enemy.js",
-        "src/Bullet.js"
+        "src/Bullet.js",
+        "src/CollisionDetect.js"
     ]
 }

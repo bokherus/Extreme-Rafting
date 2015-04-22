@@ -44,9 +44,7 @@ var GameLayer = cc.LayerColor.extend({
         return true;
     },
     
-    
-    
-    
+
     createWave: function(){
         
         this.wave = new Wave();
@@ -71,7 +69,12 @@ var GameLayer = cc.LayerColor.extend({
         // Check Wave and Raft Collision
         // If wave hit raft then raft speed is reduced
         
+        
         // Check Obstacle and Raft Colllision
+        if (  this.rock.hit( this.raft ) )
+            console.log("HIT!");
+       
+        
         var distance = Math.floor(this.raft.distance / 10);
         var speed = parseFloat(Math.round(this.raft.velocityY * 100) / 100).toFixed(2);
 
