@@ -46,6 +46,8 @@ var GameLayer = cc.LayerColor.extend({
         this.addChild( this.bullet );
         
         cc.audioEngine.playMusic( 'res/effects/BGM.mp3', true );
+         cc.audioEngine.setEffectsVolume(0.5);
+        cc.audioEngine.playEffect( 'res/effects/WaterStream.mp3', true );
         
         return true;
     },
