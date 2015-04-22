@@ -30,6 +30,10 @@ var GameLayer = cc.LayerColor.extend({
 	    this.speedLabel.setPosition( new cc.Point( 600, 510 ) );
 	    this.addChild( this.speedLabel );
         
+        this.conditionLabel = cc.LabelTTF.create( '0', 'Times New Roman', 18 );
+	    this.conditionLabel.setPosition( new cc.Point( 600, 470 ) );
+	    this.addChild( this.conditionLabel );
+        
         this.raft = new Raft();
         this.raft.setPosition( new cc.Point( 400, 200 ) );
         this.raft.scheduleUpdate();
@@ -73,15 +77,19 @@ var GameLayer = cc.LayerColor.extend({
         // Check Obstacle and Raft Colllision
         if (  this.rock.hit( this.raft ) ){
             console.log("HIT!");
+            this.raft.condition -= 10;
+            cc.audioEngine.setEffectsVolume(0.7);
             cc.audioEngine.playEffect( 'res/effects/crash.wav' );
+            this.rock.randomRespawn();
         }
        
         
-        var distance = Math.floor(this.raft.distance / 10);
-        var speed = parseFloat(Math.round(this.raft.velocityY * 100) / 100).toFixed(2);
+        var distance = Math.floor( this.raft.distance / 10 );
+        var speed = parseFloat( Math.round( this.raft.velocityY * 100 ) / 100 ).toFixed(2);
 
-        this.scoreLabel.setString('Distance: '+ distance + 'm');
-        this.speedLabel.setString('Speed:' + speed + 'm/s');
+        this.scoreLabel.setString( 'Distance: '+ distance + 'm' );
+        this.speedLabel.setString( 'Speed: ' + speed + 'm/s' );
+        this.conditionLabel.setString( 'Condition: ' + this.raft.condition +'%' );
         this.rock.setSpeed( this.raft.velocityY );
         this.wave.setSpeed( this.raft.velocityY );
         this.wave2.setSpeed( this.raft.velocityY );

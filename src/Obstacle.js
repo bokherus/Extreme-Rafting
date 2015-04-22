@@ -9,7 +9,6 @@ var Obstacle = cc.Sprite.extend({
     update: function() {
         var pos = this.getPosition();
         if ( pos.y <= 0 ){
-            this.setPosition( new cc.Point( this.x, SCREEN_HEIGHT + 100 ) );
             this.randomRespawn();
         }
         else
@@ -23,7 +22,7 @@ var Obstacle = cc.Sprite.extend({
     randomRespawn: function() {
         var pos = this.getPosition();
         var randomNum = 250 + Math.random()* 350;
-        this.setPosition( new cc.Point( randomNum , pos.y ) );
+        this.setPosition( new cc.Point( randomNum , SCREEN_HEIGHT + 200 ) );
     },
     
     hit: function( raft ) {
@@ -33,3 +32,5 @@ var Obstacle = cc.Sprite.extend({
         return checkRaftObstacleCollision( raftPos.x, raftPos.y, pos.x, pos.y );
     }
 });
+Obstacle.WIDTH = 30;
+Obstacle.HEIGHT = 30;

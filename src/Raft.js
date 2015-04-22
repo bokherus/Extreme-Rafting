@@ -9,6 +9,7 @@ var Raft = cc.Sprite.extend({
         this.accelerating = false;
         this.turningLeft = false;
         this.turningRight = false;
+        this.condition = 100;
     },
     
     update: function() {
@@ -78,4 +79,6 @@ var Raft = cc.Sprite.extend({
                          
 Raft.Acceleration = 0.025;
 Raft.TurningAngle = 1.5;
-Raft.TurningSpeed = 1.5;
+Raft.TurningSpeed = 2.3;
+Raft.WIDTH = 25;
+Raft.HEIGHT = 40;
