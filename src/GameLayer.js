@@ -45,6 +45,8 @@ var GameLayer = cc.LayerColor.extend({
         this.bullet.setDestination( this.raft.getPositionX(), this.raft.getPositionY() );
         this.addChild( this.bullet );
         
+        cc.audioEngine.playMusic( 'res/effects/BGM.mp3', true );
+        
         return true;
     },
     
