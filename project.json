@@ -19,6 +19,7 @@
         "src/Obstacle.js",
         "src/Enemy.js",
         "src/Bullet.js",
-        "src/CollisionDetect.js"
+        "src/CollisionDetect.js",
+        "src/heart.js"
     ]
 }

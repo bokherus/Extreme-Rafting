@@ -6,21 +6,33 @@ var GameLayer = cc.LayerColor.extend({
         this.scheduleUpdate();
         this.addKeyboardHandlers();
         
+        this.arrBullet = [];
+        
         this.river = new River();
         this.river.setPosition( new cc.Point( 400, 300 ) );
         this.addChild( this.river );
 
-        this.createWave();
+        //this.createWave();
         
-        this.enemy = new Enemy();
+        this.enemy = new Enemy( this );
         this.enemy.setPosition( new cc.Point( 400, 0 ) );
         this.enemy.scheduleUpdate();
         this.addChild( this.enemy );
+        
+        this.heart = new Heart();
+        this.heart.setPosition( new cc.Point( 300, 300 ) );
+        this.heart.scheduleUpdate();
+        this.addChild( this.heart );
         
         this.rock = new Obstacle();
         this.rock.scheduleUpdate();
         this.rock.setPosition( new cc.Point( 200, 300 ) );
         this.addChild( this.rock );
+        
+        this.rock2 = new Obstacle();
+        this.rock2.scheduleUpdate();
+        this.rock2.setPosition( new cc.Point( 600, 300 ) );
+        this.addChild( this.rock2 );
         
         this.scoreLabel = cc.LabelTTF.create( '0', 'Times New Roman', 18 );
 	    this.scoreLabel.setPosition( new cc.Point( 600, 550 ) );
@@ -38,12 +50,6 @@ var GameLayer = cc.LayerColor.extend({
         this.raft.setPosition( new cc.Point( 400, 200 ) );
         this.raft.scheduleUpdate();
         this.addChild( this.raft );
-        
-        this.bullet = new Bullet();
-        this.bullet.setPosition( new cc.Point( 100, 500 ) );
-        this.bullet.scheduleUpdate();
-        this.bullet.setDestination( this.raft.getPositionX(), this.raft.getPositionY() );
-        this.addChild( this.bullet );
         
         cc.audioEngine.playMusic( 'res/effects/BGM.mp3', true );
         cc.audioEngine.setEffectsVolume( 0.5 );
@@ -76,16 +82,24 @@ var GameLayer = cc.LayerColor.extend({
     update: function() {
         // Check Wave and Raft Collision
         // If wave hit raft then raft speed is reduced
+        this.checkBullet();
         
         
         // Check Obstacle and Raft Colllision
-        if (  this.rock.hit( this.raft ) ){
+        if ( this.rock.hit( this.raft ) ) {
             console.log("HIT!");
             this.raft.receiveDamage( 10 );
             cc.audioEngine.setEffectsVolume(0.7);
             cc.audioEngine.playEffect( 'res/effects/crash.wav' );
             this.rock.randomRespawn();
         }
+        
+        if ( this.heart.hit( this.raft ) ) {
+            console.log("HEAL");
+            this.raft.recover( 10 );
+            this.heart.randomRespawn();
+        }
+            
        
         
         var distance = Math.floor( this.raft.distance / 10 );
@@ -95,10 +109,12 @@ var GameLayer = cc.LayerColor.extend({
         this.speedLabel.setString( 'Speed: ' + speed + 'm/s' );
         this.conditionLabel.setString( 'Condition: ' + this.raft.condition +'%' );
         this.rock.setSpeed( this.raft.velocityY );
-        this.wave.setSpeed( this.raft.velocityY );
-        this.wave2.setSpeed( this.raft.velocityY );
-        this.wave3.setSpeed( this.raft.velocityY );
-        this.wave4.setSpeed( this.raft.velocityY );
+        this.rock2.setSpeed( this.raft.velocityY );
+        this.heart.setSpeed( this.raft.velocityY );
+//        this.wave.setSpeed( this.raft.velocityY );
+//        this.wave2.setSpeed( this.raft.velocityY );
+//        this.wave3.setSpeed( this.raft.velocityY );
+//        this.wave4.setSpeed( this.raft.velocityY );
         this.enemy.setRelativeSpeed( this.raft.velocityY );
     },
     
@@ -125,6 +141,9 @@ var GameLayer = cc.LayerColor.extend({
         if ( keyCode == cc.KEY.right )
             this.raft.turningRight = true;
         
+        if ( keyCode == cc.KEY.space )
+            this.enemy.shoot( this.raft, this );
+        
     },
 
     onKeyUp: function( keyCode, event ) {
@@ -136,6 +155,29 @@ var GameLayer = cc.LayerColor.extend({
         
         if ( keyCode == cc.KEY.right )
             this.raft.turningRight = false;
+    },
+    
+    removeBulletOutOfBounds: function( bullet, i ) {
+        var pos = bullet.getPosition();
+        if ( pos.x < 0 || pos.x > SCREEN_WIDTH || pos.y < 0 || pos.y > SCREEN_HEIGHT ) {
+            console.log( "Removing bullet" );
+            this.arrBullet.splice( i, 1 );
+        }
+    },
+    
+    bulletHit: function( index ){
+        var pos = this.arrBullet[ index ].getPosition();
+        var raftPos = this.raft.getPosition();
+        if ( checkRaftBulletCollision( raftPos.x, raftPos.y, pos.x, pos.y ) )
+            console.log("hit");
+    },
+    
+    checkBullet: function() {
+        
+        for ( var i = 0 ; i < this.arrBullet.length ; i++ ) {
+            this.bulletHit( i );
+           // this.removeBulletOutOfBounds( this.arrBullet[i] , i );
+        }
     }
 
 });

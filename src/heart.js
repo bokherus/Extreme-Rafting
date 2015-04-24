@@ -1,8 +1,7 @@
-var Obstacle = cc.Sprite.extend({
+var Heart = Obstacle.extend({
     ctor: function() {
         this._super();
-        this.initWithFile( 'res/images/Rock.png' );
-        this.setAnchorPoint( 0.5, 1 );
+        this.initWithFile( 'res/images/heart.png' );
         this.speed = 0;
     },
     
@@ -32,5 +31,5 @@ var Obstacle = cc.Sprite.extend({
         return checkRaftObstacleCollision( raftPos.x, raftPos.y, pos.x, pos.y );
     }
 });
-Obstacle.WIDTH = 30;
-Obstacle.HEIGHT = 30;
+Heart.WIDTH = 15;
+Heart.HEIGHT = 14;

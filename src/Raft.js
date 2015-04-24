@@ -38,7 +38,12 @@ var Raft = cc.Sprite.extend({
     
     receiveDamage: function( damage ) {
         this.condition -= damage;
-        if ( this.condition < 0 ) this.condition == 0;
+        if ( this.condition < 0 ) this.condition = 0;
+    },
+    
+    recover: function( amount ) {
+        this.condition += amount;
+        if ( this.condition > 100 ) this.condition = 100;
     },
     
     deaccelerateX: function() {
@@ -61,7 +66,7 @@ var Raft = cc.Sprite.extend({
     },
         
     accelerate: function() {
-        if ( this.velocityY <= 8 )
+        if ( this.velocityY <= 6 )
             this.velocityY += Raft.Acceleration;
   
     },

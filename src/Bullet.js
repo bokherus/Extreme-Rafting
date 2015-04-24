@@ -1,9 +1,10 @@
 var Bullet = cc.Sprite.extend({
-    ctor: function() {
+    ctor: function( raft ) {
         this._super();
         this.initWithFile( 'res/images/bullet.png' );
         this.velocityX = 0;
         this.velocityY = 0;
+        this.raft = raft
     },
 
     update: function( ) {
@@ -16,13 +17,13 @@ var Bullet = cc.Sprite.extend({
         var x = destinationX - pos.x;
         var y = destinationY - pos.y;
         
-        this.setRotation( Math.atan( y/x ) * 180 / Math.PI );
-    
-        x = x/90;
-        y = y/90;
+        this.setRotation( Math.atan2( y, x ) );
 
-        this.velocityX = x;
-        this.velocityY = y;
+        this.velocityX = Bullet.speed * Math.cos( this.getRotation() );
+        this.velocityY = Bullet.speed * Math.sin( this.getRotation() );
     }
 });
+Bullet.speed = 5;
+Bullet.WIDTH = 8;
+Bullet.HEIGHT = 8;
     

@@ -7,5 +7,8 @@ var checkRaftObstacleCollision = function( raftX, raftY, obstacleX, obstacleY ) 
 };
 
 var checkRaftBulletCollision = function( raftX, raftY, bulletX, bulletY ) {
-    // TODO
+   if ( ( raftX + Raft.WIDTH >= bulletX - Bullet.WIDTH && raftX - Raft.WIDTH <= bulletX + Bullet.WIDTH ) 
+    &&   ( raftY + Raft.HEIGHT >= bulletY + Bullet.HEIGHT && raftY - Raft.HEIGHT <= bulletY - Bullet.HEIGHT ) )
+        return true;
+    return false;
 };
