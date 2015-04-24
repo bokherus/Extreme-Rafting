@@ -46,7 +46,7 @@ var GameLayer = cc.LayerColor.extend({
         this.addChild( this.bullet );
         
         cc.audioEngine.playMusic( 'res/effects/BGM.mp3', true );
-         cc.audioEngine.setEffectsVolume(0.5);
+        cc.audioEngine.setEffectsVolume( 0.5 );
         cc.audioEngine.playEffect( 'res/effects/WaterStream.mp3', true );
         
         return true;
@@ -81,7 +81,7 @@ var GameLayer = cc.LayerColor.extend({
         // Check Obstacle and Raft Colllision
         if (  this.rock.hit( this.raft ) ){
             console.log("HIT!");
-            this.raft.condition -= 10;
+            this.raft.receiveDamage( 10 );
             cc.audioEngine.setEffectsVolume(0.7);
             cc.audioEngine.playEffect( 'res/effects/crash.wav' );
             this.rock.randomRespawn();

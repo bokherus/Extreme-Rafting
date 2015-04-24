@@ -2,6 +2,7 @@ var Raft = cc.Sprite.extend({
     ctor: function() {
         this._super();
         this.initWithFile( 'res/images/Raft.png' );
+        this.velocity = 1;
         this.velocityX = 0;
         this.velocityY = 1;
         this.rotation = 0;
@@ -35,6 +36,11 @@ var Raft = cc.Sprite.extend({
         this.setPosition( new cc.Point( pos.x + this.velocityX , pos.y ) );
     },
     
+    receiveDamage: function( damage ) {
+        this.condition -= damage;
+        if ( this.condition < 0 ) this.condition == 0;
+    },
+    
     deaccelerateX: function() {
          if ( this.velocityX > 0 )
                 this.velocityX -= River.friction;
@@ -57,10 +63,11 @@ var Raft = cc.Sprite.extend({
     accelerate: function() {
         if ( this.velocityY <= 8 )
             this.velocityY += Raft.Acceleration;
+  
     },
     
     rotateLeft: function( ) {
-        if ( this.rotation > - 60 )
+        if ( this.rotation > - 80 )
             this.rotation -= Raft.TurningAngle;
         
          this.velocityX = -1 * Raft.TurningSpeed;
@@ -68,7 +75,7 @@ var Raft = cc.Sprite.extend({
     },
     
     rotateRight: function() {
-        if ( this.rotation < 60 )
+        if ( this.rotation < 80 )
             this.rotation += Raft.TurningAngle;
         
         this.velocityX = Raft.TurningSpeed;
