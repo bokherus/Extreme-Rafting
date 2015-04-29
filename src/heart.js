@@ -7,11 +7,7 @@ var Heart = Obstacle.extend({
     
     update: function() {
         var pos = this.getPosition();
-        if ( pos.y <= 0 ){
-            this.randomRespawn();
-        }
-        else
-            this.setPosition( new cc.Point( pos.x, pos.y - this.speed ) );
+        this.setPosition( new cc.Point( pos.x, pos.y - this.speed ) );
     },
     
     setSpeed: function( speed ) {
@@ -29,6 +25,10 @@ var Heart = Obstacle.extend({
         var pos = this.getPosition();
         
         return checkRaftObstacleCollision( raftPos.x, raftPos.y, pos.x, pos.y );
+    },
+    
+    remove: function() {
+        this.setPosition( new cc.Point( 0, 0 ) );
     }
 });
 Heart.WIDTH = 15;

@@ -13,7 +13,6 @@ var GameLayer = cc.LayerColor.extend({
         this.addChild( this.river );
 
         //this.createWave();
-        
         this.enemy = new Enemy( this );
         this.enemy.setPosition( new cc.Point( 400, 0 ) );
         this.enemy.scheduleUpdate();
@@ -80,10 +79,8 @@ var GameLayer = cc.LayerColor.extend({
     },
     
     update: function() {
-        // Check Wave and Raft Collision
-        // If wave hit raft then raft speed is reduced
-        this.checkBullet();
         
+        this.checkBullet();
         
         // Check Obstacle and Raft Colllision
         if ( this.rock.hit( this.raft ) ) {
@@ -97,11 +94,12 @@ var GameLayer = cc.LayerColor.extend({
         if ( this.heart.hit( this.raft ) ) {
             console.log("HEAL");
             this.raft.recover( 10 );
-            this.heart.randomRespawn();
+            this.heart.remove();
+            console.log("removing heart");
         }
-            
-       
         
+        this.addEvents();
+       
         var distance = Math.floor( this.raft.distance / 10 );
         var speed = parseFloat( Math.round( this.raft.velocityY * 100 ) / 100 ).toFixed(2);
 
@@ -111,11 +109,17 @@ var GameLayer = cc.LayerColor.extend({
         this.rock.setSpeed( this.raft.velocityY );
         this.rock2.setSpeed( this.raft.velocityY );
         this.heart.setSpeed( this.raft.velocityY );
-//        this.wave.setSpeed( this.raft.velocityY );
-//        this.wave2.setSpeed( this.raft.velocityY );
-//        this.wave3.setSpeed( this.raft.velocityY );
-//        this.wave4.setSpeed( this.raft.velocityY );
         this.enemy.setRelativeSpeed( this.raft.velocityY );
+    },
+    
+    addEvents: function() {
+        var distance = Math.floor( this.raft.distance / 10 );
+        
+        if ( distance % 400 == 0 ){
+            console.log("Adding heart");
+            this.heart.randomRespawn();
+        }
+        
     },
     
     addKeyboardHandlers: function() {
@@ -144,6 +148,9 @@ var GameLayer = cc.LayerColor.extend({
         if ( keyCode == cc.KEY.space )
             this.enemy.shoot( this.raft, this );
         
+        if ( keyCode == cc.KEY.s )
+            this.heart.randomRespawn();
+        
     },
 
     onKeyUp: function( keyCode, event ) {
@@ -168,12 +175,14 @@ var GameLayer = cc.LayerColor.extend({
     bulletHit: function( index ){
         var pos = this.arrBullet[ index ].getPosition();
         var raftPos = this.raft.getPosition();
-        if ( checkRaftBulletCollision( raftPos.x, raftPos.y, pos.x, pos.y ) )
+        if ( checkRaftBulletCollision( raftPos.x, raftPos.y, pos.x, pos.y ) && this.arrBullet[ index ].hit == true ){
+            this.arrBullet[ index ].hit = false;
+            this.raft.receiveDamage( 2 );
             console.log("hit");
+        }
     },
     
     checkBullet: function() {
-        
         for ( var i = 0 ; i < this.arrBullet.length ; i++ ) {
             this.bulletHit( i );
            // this.removeBulletOutOfBounds( this.arrBullet[i] , i );

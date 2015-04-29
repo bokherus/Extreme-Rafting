@@ -5,6 +5,7 @@ var Bullet = cc.Sprite.extend({
         this.velocityX = 0;
         this.velocityY = 0;
         this.raft = raft
+        this.hit = true;
     },
 
     update: function( ) {

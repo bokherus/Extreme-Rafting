@@ -66,7 +66,7 @@ var Raft = cc.Sprite.extend({
     },
         
     accelerate: function() {
-        if ( this.velocityY <= 6 )
+        if ( this.velocityY <= 8 )
             this.velocityY += Raft.Acceleration;
   
     },
@@ -89,7 +89,7 @@ var Raft = cc.Sprite.extend({
     
 });
                          
-Raft.Acceleration = 0.025;
+Raft.Acceleration = 0.04;
 Raft.TurningAngle = 1.5;
 Raft.TurningSpeed = 2.3;
 Raft.WIDTH = 25;
