@@ -21,6 +21,8 @@
         "src/Bullet.js",
         "src/CollisionDetect.js",
         "src/heart.js",
-        "src/Island.js"
+        "src/Island.js",
+        "src/Plane.js",
+        "src/Tree.js"
     ]
 }
