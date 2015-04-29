@@ -21,8 +21,9 @@ var Obstacle = cc.Sprite.extend({
     
     randomRespawn: function() {
         var pos = this.getPosition();
-        var randomNum = 250 + Math.random()* 350;
-        this.setPosition( new cc.Point( randomNum , SCREEN_HEIGHT + 200 ) );
+        var randomX = 250 + Math.random() * 350;
+        var randomY = 300 + Math.random() * 200
+        this.setPosition( new cc.Point( randomX , SCREEN_HEIGHT + randomY ) );
     },
     
     hit: function( raft ) {

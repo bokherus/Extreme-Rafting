@@ -7,6 +7,7 @@ var GameLayer = cc.LayerColor.extend({
         this.addKeyboardHandlers();
         
         this.arrBullet = [];
+        this.arrObstacle = [];
         
         this.river = new River();
         this.river.setPosition( new cc.Point( 400, 300 ) );
@@ -23,15 +24,12 @@ var GameLayer = cc.LayerColor.extend({
         this.heart.scheduleUpdate();
         this.addChild( this.heart );
         
-        this.rock = new Obstacle();
-        this.rock.scheduleUpdate();
-        this.rock.setPosition( new cc.Point( 200, 300 ) );
-        this.addChild( this.rock );
+        this.createObstacles();
         
-        this.rock2 = new Obstacle();
-        this.rock2.scheduleUpdate();
-        this.rock2.setPosition( new cc.Point( 600, 300 ) );
-        this.addChild( this.rock2 );
+        this.island = new Island();
+        this.island.setPosition( new cc.Point( 300, 300 ) );
+        this.island.scheduleUpdate();
+        this.addChild( this.island );
         
         this.scoreLabel = cc.LabelTTF.create( '0', 'Times New Roman', 18 );
 	    this.scoreLabel.setPosition( new cc.Point( 600, 550 ) );
@@ -55,6 +53,17 @@ var GameLayer = cc.LayerColor.extend({
         cc.audioEngine.playEffect( 'res/effects/WaterStream.mp3', true );
         
         return true;
+    },
+    
+    createObstacles: function(){
+        for ( var i = 0 ; i < 3 ; i++ ){
+            var rock = new Obstacle();
+            rock.scheduleUpdate();
+            rock.randomRespawn();
+            this.arrObstacle.push( rock );
+            this.addChild( rock );
+        }
+        
     },
     
 
@@ -81,16 +90,7 @@ var GameLayer = cc.LayerColor.extend({
     update: function() {
         
         this.checkBullet();
-        
-        // Check Obstacle and Raft Colllision
-        if ( this.rock.hit( this.raft ) ) {
-            console.log("HIT!");
-            this.raft.receiveDamage( 10 );
-            cc.audioEngine.setEffectsVolume(0.7);
-            cc.audioEngine.playEffect( 'res/effects/crash.wav' );
-            this.rock.randomRespawn();
-        }
-        
+
         if ( this.heart.hit( this.raft ) ) {
             console.log("HEAL");
             this.raft.recover( 10 );
@@ -106,8 +106,19 @@ var GameLayer = cc.LayerColor.extend({
         this.scoreLabel.setString( 'Distance: '+ distance + 'm' );
         this.speedLabel.setString( 'Speed: ' + speed + 'm/s' );
         this.conditionLabel.setString( 'Condition: ' + this.raft.condition +'%' );
-        this.rock.setSpeed( this.raft.velocityY );
-        this.rock2.setSpeed( this.raft.velocityY );
+        this.island.setSpeed( this.raft.velocityY );
+        for ( var i = 0 ; i < this.arrObstacle.length ; i++ ){
+            this.arrObstacle[i].setSpeed( this.raft.velocityY );
+            
+            if ( this.arrObstacle[i].hit( this.raft ) ) {
+                console.log("HIT!");
+                this.raft.receiveDamage( 10 );
+                //cc.audioEngine.setEffectsVolume(0.7);
+                //cc.audioEngine.playEffect( 'res/effects/crash.wav' );
+                this.arrObstacle[i].randomRespawn();
+            }
+        }
+
         this.heart.setSpeed( this.raft.velocityY );
         this.enemy.setRelativeSpeed( this.raft.velocityY );
     },
@@ -119,6 +130,9 @@ var GameLayer = cc.LayerColor.extend({
             console.log("Adding heart");
             this.heart.randomRespawn();
         }
+        
+//        if ( distance % 10 == 0 )
+//            this.enemy.shoot( this.raft, this );
         
     },
     
@@ -148,9 +162,6 @@ var GameLayer = cc.LayerColor.extend({
         if ( keyCode == cc.KEY.space )
             this.enemy.shoot( this.raft, this );
         
-        if ( keyCode == cc.KEY.s )
-            this.heart.randomRespawn();
-        
     },
 
     onKeyUp: function( keyCode, event ) {
@@ -168,6 +179,7 @@ var GameLayer = cc.LayerColor.extend({
         var pos = bullet.getPosition();
         if ( pos.x < 0 || pos.x > SCREEN_WIDTH || pos.y < 0 || pos.y > SCREEN_HEIGHT ) {
             console.log( "Removing bullet" );
+            this.removeChild( this.arrBullet[ i ] );
             this.arrBullet.splice( i, 1 );
         }
     },
@@ -185,7 +197,7 @@ var GameLayer = cc.LayerColor.extend({
     checkBullet: function() {
         for ( var i = 0 ; i < this.arrBullet.length ; i++ ) {
             this.bulletHit( i );
-           // this.removeBulletOutOfBounds( this.arrBullet[i] , i );
+            this.removeBulletOutOfBounds( this.arrBullet[i] , i );
         }
     }
 

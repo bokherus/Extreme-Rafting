@@ -8,7 +8,8 @@ var res = {
     Crash_wav: 'res/effects/crash.wav',
     BGM_mp3: 'res/effects/BGM.mp3',
     stream_mp3: 'res/effects/WaterStream.mp3',
-    heart_png: 'res/images/heart.png'
+    heart_png: 'res/images/heart.png',
+    island_png: 'res/images/Island.png'
 };
 
 var g_resources = [];
