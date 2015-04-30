@@ -10,7 +10,8 @@ var res = {
     stream_mp3: 'res/effects/WaterStream.mp3',
     heart_png: 'res/images/heart.png',
     island_png: 'res/images/Island.png',
-    flyingPlane_mp3: 'res/effect/FlyingPlane.mp3'
+    flyingPlane_mp3: 'res/effects/FlyingPlane.mp3',
+    largeRock_png: 'res/images/LargeRock.png'
 };
 
 var g_resources = [];

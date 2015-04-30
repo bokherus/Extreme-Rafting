@@ -25,6 +25,11 @@ var Enemy = cc.Sprite.extend({
         this.gameLayer.addChild( bullet );
         this.gameLayer.arrBullet.push( bullet );
         bullet.scheduleUpdate();
+    },
+    
+    inBounds: function(){
+        var pos = this.getPosition();
+        return ( pos.x > 0 && pos.x < SCREEN_WIDTH && pos.y > 0 && pos.y < SCREEN_HEIGHT )
     }
 
 });

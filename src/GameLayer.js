@@ -5,19 +5,21 @@ var GameLayer = cc.LayerColor.extend({
         
         this.scheduleUpdate();
         this.addKeyboardHandlers();
-        
+
         this.arrBullet = [];
         this.arrObstacle = [];
+        this.arrTree = [];
         
         this.river = new River();
         this.river.setPosition( new cc.Point( 400, 300 ) );
         this.addChild( this.river );
 
-        //this.createWave();
         this.enemy = new Enemy( this );
         this.enemy.setPosition( new cc.Point( 400, 0 ) );
         this.enemy.scheduleUpdate();
         this.addChild( this.enemy );
+        
+        this.createTrees();
         
         this.heart = new Heart();
         this.heart.setPosition( new cc.Point( 300, 300 ) );
@@ -65,8 +67,13 @@ var GameLayer = cc.LayerColor.extend({
     },
     
     createObstacles: function(){
-        for ( var i = 0 ; i < 3 ; i++ ){
-            var rock = new Obstacle();
+        for ( var i = 0 ; i < 4 ; i++ ){
+            var rock;
+            if ( i < 2 )
+                rock = new Obstacle();
+            else
+                rock = new LargeRock();
+            
             rock.scheduleUpdate();
             rock.randomRespawn();
             this.arrObstacle.push( rock );
@@ -76,24 +83,27 @@ var GameLayer = cc.LayerColor.extend({
     },
     
 
-    createWave: function(){
+    createTrees: function(){
+        var randomNum;
+        for ( var i = 0 ; i < 6 ; i++ ) {
+            randomNum = Math.random() * 30;
+            var tree = new Tree();
+            tree.scheduleUpdate();
+            tree.setPosition( new cc.Point( randomNum, 120 * i ) );
+            this.arrTree.push( tree );
+            this.addChild( tree );
+        }
         
-//        this.wave = new Wave();
-//        this.wave2 = new Wave();
-//        this.wave3 = new Wave();
-//        this.wave4 = new Wave();
-//        this.wave.scheduleUpdate();
-//        this.wave2.scheduleUpdate();
-//        this.wave3.scheduleUpdate();
-//        this.wave4.scheduleUpdate();
-//        this.wave.setPosition( new cc.Point( 400, 500 ) );
-//        this.wave2.setPosition( new cc.Point( 400, 300 ) );
-//        this.wave3.setPosition( new cc.Point( 400, 100 ) );
-//        this.wave4.setPosition( new cc.Point( 400, 0 ) );
-//        this.addChild( this.wave );
-//        this.addChild( this.wave2 );
-//        this.addChild( this.wave3 );
-//        this.addChild( this.wave4 );
+        
+        for ( var i = 0 ; i < 6 ; i++ ) {
+            randomNum = 780 + Math.random() * 50;
+            var tree = new Tree();
+            tree.scheduleUpdate();
+            tree.setPosition( new cc.Point( randomNum, 120 * i ) );
+            this.arrTree.push( tree );
+            this.addChild( tree );
+        }
+        
     },
     
     update: function() {
@@ -102,7 +112,7 @@ var GameLayer = cc.LayerColor.extend({
 
         if ( this.heart.hit( this.raft ) ) {
             console.log("HEAL");
-            this.raft.recover( 10 );
+            this.raft.recover( 20 );
             this.heart.remove();
             console.log("removing heart");
         }
@@ -118,15 +128,25 @@ var GameLayer = cc.LayerColor.extend({
         this.island.setSpeed( this.raft.velocityY );
         this.plane.setSpeed( this.raft.velocityY );
         this.tree.setSpeed( this.raft.velocityY );
-        for ( var i = 0 ; i < this.arrObstacle.length ; i++ ){
+        for ( var i = 0 ; i < this.arrObstacle.length ; i++ ) {
             this.arrObstacle[i].setSpeed( this.raft.velocityY );
             
             if ( this.arrObstacle[i].hit( this.raft ) ) {
                 console.log("HIT!");
-                this.raft.receiveDamage( 10 );
+                this.raft.receiveDamage( 30 );
                 //cc.audioEngine.setEffectsVolume(0.7);
                 //cc.audioEngine.playEffect( 'res/effects/crash.wav' );
                 this.arrObstacle[i].randomRespawn();
+            }
+        }
+        
+        
+        for ( var i = 0 ; i < this.arrTree.length ; i++ ) {
+            this.arrTree[i].setSpeed( this.raft.velocityY );
+            
+            if ( this.arrTree[i].hit( this.raft ) ) {
+                console.log("HIT!");
+                this.raft.receiveDamage( 100 );
             }
         }
 
@@ -142,8 +162,11 @@ var GameLayer = cc.LayerColor.extend({
             this.heart.randomRespawn();
         }
         
-//        if ( distance % 10 == 0 )
-//            this.enemy.shoot( this.raft, this );
+        if ( distance % 500 == 0 ) {
+            console.log("Spawning Plane");
+            cc.audioEngine.playEffect( 'res/effects/FlyingPlane.mp3' );
+            this.plane.spawn();
+        }
         
     },
     

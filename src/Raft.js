@@ -6,7 +6,7 @@ var Raft = cc.Sprite.extend({
         this.velocityX = 0;
         this.velocityY = 1;
         this.rotation = 0;
-        this.distance = 0;
+        this.distance = 10;
         this.accelerating = false;
         this.turningLeft = false;
         this.turningRight = false;
@@ -66,7 +66,7 @@ var Raft = cc.Sprite.extend({
     },
         
     accelerate: function() {
-        if ( this.velocityY <= 8 )
+        if ( this.velocityY <= 6 )
             this.velocityY += Raft.Acceleration;
   
     },

@@ -6,12 +6,11 @@ var Plane = Obstacle.extend({
 
     update: function() {
         var pos = this.getPosition();
-        this.setPosition( new cc.Point( pos.x + 1.5, pos.y - this.speed) );
+        this.setPosition( new cc.Point( pos.x + 2.5, pos.y - 3 ) );
     },
     
     spawn: function() {
-        this.setPosition( new cc.Point( 0 , SCREEN_HEIGHT + 400 ) );
-        cc.audioEngine.playEffect( 'res/effects/FlyingPlane.wav' );
+        this.setPosition( new cc.Point( - 500 , SCREEN_HEIGHT + 600 ) );
     },
 
     

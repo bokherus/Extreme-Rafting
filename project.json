@@ -23,6 +23,7 @@
         "src/heart.js",
         "src/Island.js",
         "src/Plane.js",
-        "src/Tree.js"
+        "src/Tree.js",
+        "src/LargeRock.js"
     ]
 }
