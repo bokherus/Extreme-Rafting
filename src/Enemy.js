@@ -5,6 +5,7 @@ var Enemy = cc.Sprite.extend({
         this.initWithFile( 'res/images/Raft.png' );
         this.relativeSpeed = 0;
         this.gameLayer = gameLayer;
+        this.speed = 0;
     },
     
     update: function() {
@@ -30,8 +31,14 @@ var Enemy = cc.Sprite.extend({
     inBounds: function(){
         var pos = this.getPosition();
         return ( pos.x > 0 && pos.x < SCREEN_WIDTH && pos.y > 0 && pos.y < SCREEN_HEIGHT )
+    },
+    
+    setSpeed: function( speed ) {
+        this.speed = speed;
     }
+    
+    
 
 });
                          
-Enemy.speed = 4;
+Enemy.speed = 4.4;
