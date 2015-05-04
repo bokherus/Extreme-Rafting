@@ -26,6 +26,7 @@
         "src/Tree.js",
         "src/LargeRock.js",
         "src/MainMenu.js",
-        "src/HUD.js"
+        "src/HUD.js",
+        "src/ConditionBar.js"
     ]
 }

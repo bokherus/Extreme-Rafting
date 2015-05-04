@@ -21,9 +21,11 @@ var GameLayer = cc.LayerColor.extend({
         this.hud = new HUD();
         this.addChild( this.hud );
         
+        this.conditionBar =new ConditionBar();
+        this.addChild( this.conditionBar );
+        
         this.createLabel();
 
-        
         cc.audioEngine.playMusic( 'res/effects/BGM.mp3', true );
         cc.audioEngine.setEffectsVolume( 0.5 );
         cc.audioEngine.playEffect( 'res/effects/WaterStream.mp3', true );
@@ -53,7 +55,7 @@ var GameLayer = cc.LayerColor.extend({
 	    this.addChild( this.speedLabel );
         
         this.conditionLabel = cc.LabelTTF.create( '0', 'Times New Roman', 18 );
-	    this.conditionLabel.setPosition( new cc.Point( 600, 575 ) );
+	    this.conditionLabel.setPosition( new cc.Point( 660, 575 ) );
 	    this.addChild( this.conditionLabel );
     },
     
@@ -121,11 +123,13 @@ var GameLayer = cc.LayerColor.extend({
         if ( this.heart.hit( this.raft ) ) {
             this.raft.recover( 25 );
             cc.audioEngine.playEffect( 'res/effects/Pickup.mp3' );
+            this.updateConditionBar();
             this.heart.remove();
         }
         
         if ( this.island.hit( this.raft ) ) {
             this.raft.receiveDamage( 5 );
+            this.updateConditionBar();
             console.log("HIT");
         }
         
@@ -145,12 +149,18 @@ var GameLayer = cc.LayerColor.extend({
         this.heart.setSpeed( this.raft.velocity );
     },
     
+    updateConditionBar: function(){
+        this.conditionBar.setScaleX(this.raft.condition / 100);
+        this.conditionBar.repositionX( this.raft.condition );
+    },
+    
     updateObstacle: function(){
         for ( var i = 0 ; i < this.arrObstacle.length ; i++ ) {
             this.arrObstacle[i].setSpeed( this.raft.velocity );
             
             if ( this.arrObstacle[i].hit( this.raft ) ) {
                 this.raft.receiveDamage( this.arrObstacle[i].damage );
+                this.updateConditionBar();
                 cc.audioEngine.setEffectsVolume(0.7);
                 cc.audioEngine.playEffect( 'res/effects/Impact.mp3' );
                 this.arrObstacle[i].randomRespawn();
@@ -165,6 +175,7 @@ var GameLayer = cc.LayerColor.extend({
             if ( this.arrTree[i].hit( this.raft ) ) {
                 console.log("HIT!");
                 this.raft.receiveDamage( 3 );
+                this.updateConditionBar();
             }
         }
     },
