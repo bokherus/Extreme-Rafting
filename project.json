@@ -2,7 +2,7 @@
     "project_type": "javascript",
 
     "debugMode" : 1,
-    "showFPS" : true,
+    "showFPS" : false,
     "frameRate" : 60,
     "id" : "gameCanvas",
     "renderMode" : 0,
@@ -24,6 +24,8 @@
         "src/Island.js",
         "src/Plane.js",
         "src/Tree.js",
-        "src/LargeRock.js"
+        "src/LargeRock.js",
+        "src/MainMenu.js",
+        "src/HUD.js"
     ]
 }

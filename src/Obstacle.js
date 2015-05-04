@@ -4,6 +4,7 @@ var Obstacle = cc.Sprite.extend({
         this.initWithFile( 'res/images/Rock.png' );
         this.setAnchorPoint( 0.5, 1 );
         this.speed = 0;
+        this.damage = 20;
     },
     
     update: function() {
@@ -21,7 +22,7 @@ var Obstacle = cc.Sprite.extend({
     
     randomRespawn: function() {
         var pos = this.getPosition();
-        var randomX = 250 + Math.random() * 350;
+        var randomX = 150 + Math.random() * 400;
         var randomY = 300 + Math.random() * 200
         this.setPosition( new cc.Point( randomX , SCREEN_HEIGHT + randomY ) );
     },

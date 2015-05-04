@@ -5,13 +5,18 @@ var res = {
     Wave2_png : 'res/images/Wave2.png',
     Rock_png: 'res/images/Rock.png',
     Bullet_png: 'res/images/Bullet.png',
-    Crash_wav: 'res/effects/crash.wav',
+    Impact_mp3: 'res/effects/Impact.mp3',
     BGM_mp3: 'res/effects/BGM.mp3',
     stream_mp3: 'res/effects/WaterStream.mp3',
     heart_png: 'res/images/heart.png',
     island_png: 'res/images/Island.png',
     flyingPlane_mp3: 'res/effects/FlyingPlane.mp3',
-    largeRock_png: 'res/images/LargeRock.png'
+    largeRock_png: 'res/images/LargeRock.png',
+    splash_mp3: 'res/effects/Splash.mp3',
+    gunShot_mp3: 'res/effects/GunShot.mp3',
+    pickup_mp3: 'res/effects/Pickup.mp3',
+    playButton_png: 'res/images/PlayButton.png',
+    HUD_png: 'res/images/HUD.png'
 };
 
 var g_resources = [];

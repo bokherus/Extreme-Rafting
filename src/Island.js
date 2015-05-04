@@ -6,4 +6,13 @@ var Island = Obstacle.extend({
         this.speed = 0;
     },
     
+    hit: function( raft ){
+        var raftPos = raft.getPosition();
+        var pos = this.getPosition();
+        
+        return checkRaftIslandCollision( raftPos.x, raftPos.y, pos.x, pos.y );
+    }
+    
 });
+Island.WIDTH = 260;
+Island.HEIGHT = 240;

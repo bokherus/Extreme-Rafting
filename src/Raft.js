@@ -17,28 +17,25 @@ var Raft = cc.Sprite.extend({
         var pos = this.getPosition();
         
         if ( this.accelerating )
-            this.accelerate();
-        
-        else this.deaccelerateY();
+            this.accelerate();  
+        else 
+            this.deaccelerateY();
         
         if ( this.turningLeft )
             this.rotateLeft();
-        
         else if ( this.turningRight )
             this.rotateRight();
-
         else {
             this.deaccelerateX();
         }
-        
-        this.velocityY = this.velocity * Math.sin( (this.rotation + 90) * Math.PI / 180 );
         this.velocityX = -1* this.velocity * Math.cos( (this.rotation + 90) * Math.PI / 180 );
+        this.velocityY = this.velocity * Math.sin( (this.rotation + 90) * Math.PI / 180 );
         
         this.distance += this.velocityY;
 
         this.setPosition( new cc.Point( pos.x + this.velocityX , pos.y ) );
     },
-    
+
     receiveDamage: function( damage ) {
         this.condition -= damage;
         if ( this.condition < 0 ) this.condition = 0;
@@ -69,7 +66,7 @@ var Raft = cc.Sprite.extend({
     },
         
     accelerate: function() {
-        if ( this.velocity <= 6 )
+        if ( this.velocity <= 8 )
             this.velocity += Raft.Acceleration;
   
     },

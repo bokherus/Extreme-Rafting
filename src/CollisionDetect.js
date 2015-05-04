@@ -12,3 +12,10 @@ var checkRaftBulletCollision = function( raftX, raftY, bulletX, bulletY ) {
         return true;
     return false;
 };
+
+var checkRaftIslandCollision = function( raftX, raftY, islandX, islandY ) {
+    if ( ( raftX + Raft.WIDTH >= islandX - Island.WIDTH && raftX - Raft.WIDTH <= islandX + Island.WIDTH ) 
+    &&   ( raftY + Raft.HEIGHT >= islandY + Island.HEIGHT && raftY - Raft.HEIGHT <= islandY - Island.HEIGHT ) )
+        return true;
+    return false;
+};
