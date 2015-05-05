@@ -22,7 +22,7 @@ var Obstacle = cc.Sprite.extend({
     
     randomRespawn: function() {
         var pos = this.getPosition();
-        var randomX = 150 + Math.random() * 400;
+        var randomX = 100 + Math.random() * 600;
         var randomY = 300 + Math.random() * 200
         this.setPosition( new cc.Point( randomX , SCREEN_HEIGHT + randomY ) );
     },

@@ -11,7 +11,7 @@ var MainMenu = cc.LayerColor.extend({
     this.createBackground();
     this.createPlayButton();
     cc.audioEngine.playMusic( 'res/effects/BGM.mp3' );
-    this.credit = cc.LabelTTF.create( 'Sounds from: http://www.freesfx.co.uk', 'Ariel', 18 );
+    this.credit = cc.LabelTTF.create( 'Sounds from: http://www.freesfx.co.uk', 'Times New Roman', 18 );
     this.credit.setPosition( new cc.Point( 150, 40 ) );
 	    this.addChild( this.credit );
      

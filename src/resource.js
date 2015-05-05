@@ -16,7 +16,8 @@ var res = {
     gunShot_mp3: 'res/effects/GunShot.mp3',
     pickup_mp3: 'res/effects/Pickup.mp3',
     playButton_png: 'res/images/PlayButton.png',
-    HUD_png: 'res/images/HUD.png'
+    HUD_png: 'res/images/HUD.png',
+    conditionBar_png: 'res/images/ConditionBar.png'
 };
 
 var g_resources = [];

@@ -81,9 +81,9 @@ var GameLayer = cc.LayerColor.extend({
     },
     
     createObstacles: function(){
-        for ( var i = 0 ; i < 4 ; i++ ){
+        for ( var i = 0 ; i < 5 ; i++ ){
             var rock;
-            if ( i < 2 )
+            if ( i < 3 )
                 rock = new Obstacle();
             else
                 rock = new LargeRock();
