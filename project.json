@@ -27,6 +27,7 @@
         "src/LargeRock.js",
         "src/MainMenu.js",
         "src/HUD.js",
-        "src/ConditionBar.js"
+        "src/ConditionBar.js",
+        "src/GameOverScene.js"
     ]
 }

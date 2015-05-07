@@ -2,7 +2,7 @@ var Raft = cc.Sprite.extend({
     ctor: function() {
         this._super();
         this.initWithFile( 'res/images/Raft.png' );
-        this.velocity = 1;
+        this.velocity = 4;
         this.velocityX = 0;
         this.velocityY = 1;
         this.rotation = 0;
@@ -70,13 +70,13 @@ var Raft = cc.Sprite.extend({
     },
     
     deaccelerateY: function() {
-         if ( this.velocity > 1 )
+         if ( this.velocity > 4 )
                 this.velocity -= River.friction;
 
     },
         
     accelerate: function() {
-        if ( this.velocity <= 8 )
+        if ( this.velocity <= 14 )
             this.velocity += Raft.Acceleration;
   
     },

@@ -119,18 +119,16 @@ var GameLayer = cc.LayerColor.extend({
     update: function() {
         
         this.checkBullet();
+        
+        this.schedule( this.incrementTime,  1.0 );
+        
+        distance = Math.floor( this.raft.distance / 10 );
 
         if ( this.heart.hit( this.raft ) ) {
             this.raft.recover( 25 );
             cc.audioEngine.playEffect( 'res/effects/Pickup.mp3' );
             this.updateConditionBar();
             this.heart.remove();
-        }
-        
-        if ( this.island.hit( this.raft ) ) {
-            this.raft.receiveDamage( 5 );
-            this.updateConditionBar();
-            console.log("HIT");
         }
         
         if ( this.raft.condition == 0 ) 
@@ -173,7 +171,6 @@ var GameLayer = cc.LayerColor.extend({
             this.arrTree[i].setSpeed( this.raft.velocity );
             
             if ( this.arrTree[i].hit( this.raft ) ) {
-                console.log("HIT!");
                 this.raft.receiveDamage( 3 );
                 this.updateConditionBar();
             }
@@ -181,7 +178,7 @@ var GameLayer = cc.LayerColor.extend({
     },
     
     updateLabel: function() {
-        var distance = Math.floor( this.raft.distance / 10 );
+        
         var speed = parseFloat( Math.round( this.raft.velocity * 100 ) / 100 ).toFixed(2);
 
         this.scoreLabel.setString( distance + 'm' );
@@ -190,16 +187,13 @@ var GameLayer = cc.LayerColor.extend({
     },
     
     addEvents: function() {
-        var distance = Math.floor( this.raft.distance / 10 );
         
         if ( distance % 400 == 0 ){
-            console.log("Adding heart");
             this.heart.randomRespawn();
             cc.audioEngine.playEffect( 'res/effects/Splash.mp3' );
         }
          
         if ( distance % 800 == 0 ) {
-            console.log("Spawning Plane");
             cc.audioEngine.playEffect( 'res/effects/FlyingPlane.mp3' );
             this.plane.spawn();
         }
@@ -228,10 +222,7 @@ var GameLayer = cc.LayerColor.extend({
         
         if ( keyCode == cc.KEY.right )
             this.raft.turningRight = true;
-        
-        if ( keyCode == cc.KEY.space )
-            this.enemy.shoot( this.raft, this );
-        
+
     },
 
     onKeyUp: function( keyCode, event ) {
@@ -273,21 +264,14 @@ var GameLayer = cc.LayerColor.extend({
     },
     
     endGame: function() {
-        for ( var i = 0 ; i < this.arrObstacle.length ; i++ ) {
-            this.arrObstacle[i].unscheduleUpdate();
-        }
-        
-        for ( var i = 0 ; i < this.arrTree.length ; i++ ) {
-            this.arrTree[i].unscheduleUpdate();
-        }
         cc.audioEngine.stopMusic( 'res/effects/BGM.mp3' );
-        this.raft.velocityY = 0;
-        this.speedLabel.setString( '0.00 m/s' );
-        this.raft.unscheduleUpdate();
-        this.island.unscheduleUpdate();
-        this.heart.unscheduleUpdate();
-        this.unscheduleUpdate();
-    }
+        cc.audioEngine.stopAllEffects();
+        cc.director.runScene( new EndGameMenu() );
+    },
+    
+    incrementTime: function(dt){
+        time++;
+    },
 
 });
  
@@ -299,3 +283,6 @@ var StartScene = cc.Scene.extend({
         this.addChild( layer );
     }
 });
+
+var distance = 0;
+var time = 0;

@@ -37,7 +37,6 @@ var MainMenu = cc.LayerColor.extend({
     this.addChild( this.playButton );
   },
 
-
 });
 
 var StartGameMenu = cc.Scene.extend({

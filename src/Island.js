@@ -21,5 +21,5 @@ var Island = Obstacle.extend({
     },
     
 });
-Island.WIDTH = 260;
-Island.HEIGHT = 240;
+Island.WIDTH = 130;
+Island.HEIGHT = 120;

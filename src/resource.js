@@ -12,12 +12,15 @@ var res = {
     island_png: 'res/images/Island.png',
     flyingPlane_mp3: 'res/effects/FlyingPlane.mp3',
     largeRock_png: 'res/images/LargeRock.png',
+    tree_png: 'res/images/Tree.png',
     splash_mp3: 'res/effects/Splash.mp3',
     gunShot_mp3: 'res/effects/GunShot.mp3',
     pickup_mp3: 'res/effects/Pickup.mp3',
     playButton_png: 'res/images/PlayButton.png',
     HUD_png: 'res/images/HUD.png',
-    conditionBar_png: 'res/images/ConditionBar.png'
+    conditionBar_png: 'res/images/ConditionBar.png',
+    restartBtn_png: 'res/images/RestartButton.png',
+    restartBtnClicked_png: 'res/images/RestartButtonClicked.png'
 };
 
 var g_resources = [];
