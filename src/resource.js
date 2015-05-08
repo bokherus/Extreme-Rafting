@@ -21,7 +21,8 @@ var res = {
     conditionBar_png: 'res/images/ConditionBar.png',
     restartBtn_png: 'res/images/RestartButton.png',
     restartBtnClicked_png: 'res/images/RestartButtonClicked.png',
-    menuTheme_png: 'res/effects/MainMenuTheme.mp3'
+    menuTheme_mp3: 'res/effects/MainMenuTheme.mp3',
+    click_mp3: 'res/effects/click.mp3'
 };
 
 var g_resources = [];

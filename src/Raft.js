@@ -76,7 +76,7 @@ var Raft = cc.Sprite.extend({
     },
         
     accelerate: function() {
-        if ( this.velocity <= 14 )
+        if ( this.velocity <= 10 )
             this.velocity += Raft.Acceleration;
   
     },

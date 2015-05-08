@@ -30,6 +30,7 @@ var MainMenu = cc.LayerColor.extend({
       'res/images/PlayButtonClicked.png',
       function () {
         cc.audioEngine.stopMusic( 'res/effects/MainMenuTheme.mp3' );
+        cc.audioEngine.playEffect( 'res/effects/click.mp3' );
         cc.director.runScene( new StartScene() );
       }, this);
     this.playButton = new cc.Menu( this.playButtonItem );
