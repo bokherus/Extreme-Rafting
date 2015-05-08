@@ -10,7 +10,7 @@ var MainMenu = cc.LayerColor.extend({
   init: function() {
     this.createBackground();
     this.createPlayButton();
-    cc.audioEngine.playMusic( 'res/effects/BGM.mp3' );
+    cc.audioEngine.playMusic( 'res/effects/MainMenuTheme.mp3' );
     this.credit = cc.LabelTTF.create( 'Sounds from: http://www.freesfx.co.uk', 'Times New Roman', 18 );
     this.credit.setPosition( new cc.Point( 150, 40 ) );
 	    this.addChild( this.credit );
@@ -29,7 +29,7 @@ var MainMenu = cc.LayerColor.extend({
       'res/images/PlayButton.png',
       'res/images/PlayButtonClicked.png',
       function () {
-        cc.audioEngine.stopMusic( 'res/effects/BGM.mp3' );
+        cc.audioEngine.stopMusic( 'res/effects/MainMenuTheme.mp3' );
         cc.director.runScene( new StartScene() );
       }, this);
     this.playButton = new cc.Menu( this.playButtonItem );

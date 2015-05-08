@@ -20,7 +20,8 @@ var res = {
     HUD_png: 'res/images/HUD.png',
     conditionBar_png: 'res/images/ConditionBar.png',
     restartBtn_png: 'res/images/RestartButton.png',
-    restartBtnClicked_png: 'res/images/RestartButtonClicked.png'
+    restartBtnClicked_png: 'res/images/RestartButtonClicked.png',
+    menuTheme_png: 'res/effects/MainMenuTheme.mp3'
 };
 
 var g_resources = [];
